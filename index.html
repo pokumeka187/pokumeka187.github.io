@@ -1,204 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>beh 100%</title>
+  <title>beh 200%</title>
   <style>
-    html, body {
-      height: 100%;
+    * {
       margin: 0;
       padding: 0;
-      background: #000;
-      overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      box-sizing: border-box;
     }
-    
-    /* Darkening layer added */
-    #darken-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
+    body, html {
       height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 15;
-    }
-    
-    #bgimg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: 10;
-    }
-    
-    #imgtext-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 20;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    #imgtext {
-      width: 1520px;
-      height: 1080px;
-      object-fit: contain;
-    }
-    
-    #music {
-      display: none;
-    }
-    
-    .audio-control {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 30px;
-      z-index: 30;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid #555;
-    }
-    
-    .audio-control:hover {
-      background: rgba(30, 30, 30, 0.9);
-    }
-    
-    .audio-icon {
-      font-size: 24px;
-    }
-    
-    .loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      z-index: 40;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      font-family: Arial, sans-serif;
       color: #fff;
-      transition: opacity 0.5s;
-    }
-    
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s linear infinite;
-      margin-bottom: 20px;
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    
-    .title {
-      position: fixed;
-      top: 30px;
-      left: 0;
-      width: 100%;
       text-align: center;
-      color: white;
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-      z-index: 25;
-      letter-spacing: 2px;
+      overflow: hidden;
+    }
+
+    /* Слайдер фона */
+    .background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .background img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s 0;
+      filter: brightness(0.2); /* затемнение */
+    }
+    .background img.active {
+      opacity: 1;
+    }
+
+    /* Контент */
+    .center {
+      font-size: 4em;
+      font-weight: bold;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-shadow: 0 0 10px #000;
+    }
+    .footer {
+      position: absolute;
+      bottom: 40%;
+      width: 100%;
+    }
+    .footer a {
+      color: #1e90ff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.7em;
+      font-weight: bold;
+    }
+    .footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="loading" id="loading">
-<p>sup</p>
+  <div class="background"> // don't try to discover wtf is those screenshots, i made them while playing gmod back in the days
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1387144467940773948/C13J7Srtvvs.jpg?ex=68ba89b5&is=68b93835&hm=8174bd0bb30b8f813b745729ac8048e5ea1571e343d0048d9dd54e75b72153e3&" class="active">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1387143664207401121/chanov.png?ex=68ba88f5&is=68b93775&hm=85f643df05b5040c6bee2a79f14e161c08bed9890c7e97cd49ad0dfc7bb380ac&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413212726066548927/20250902220330_1.jpg?ex=68bb1c6a&is=68b9caea&hm=db592cdce74955be5b39103447624a2ac4d3ea2d256458e2e3ba12a13ee0bac9&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1387143387982860308/20241214164101_1.jpg?ex=68ba88b3&is=68b93733&hm=56e5687d5d8489f45358791f2d8cd117ef4e95349be5011bbdf754646eba2427&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413214303489753219/20250701215108_1.jpg?ex=68bb1de2&is=68b9cc62&hm=cb03688be42b7d1b23185571d37df3278a687261f2054fb758df13fbff16e8c3&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413214249916043376/20250903131842_1.jpg?ex=68bb1dd5&is=68b9cc55&hm=ac168a91d33565109958cb8185134295fd5d2994edb5e69c0a88cc0393a4e55f&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413214035423399966/20250701221836_1.jpg?ex=68bb1da2&is=68b9cc22&hm=75b56d42e9c8b4fd0d747736d396a96daaf7a5697c96956247c7be744267f91b&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413214008642633738/20250718035652_1.jpg?ex=68bb1d9b&is=68b9cc1b&hm=1aede9009c594be4dca898cbf30f3bc5347bba2531ff84895e945704b4bad1cb&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413213677665914921/20250903134444_1.jpg?ex=68bb1d4c&is=68b9cbcc&hm=09f52913845fc8b8460ebead296af78d4377bd575f3daae59608382bcf50f44c&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413213588277170320/20250722202804_1.jpg?ex=68bb1d37&is=68b9cbb7&hm=f2db98fa8efa7b6bb8a5a50b0279211ad30998a78b87bca5dcee53d2af3d5f9f&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413213416373358613/20250707194649_1.jpg?ex=68bb1d0e&is=68b9cb8e&hm=610a9868a54fb2510578cada6fa819a2301a762bc570dd7127ba3558d1c35126&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413213257627336724/20250711214814_1.jpg?ex=68bb1ce8&is=68b9cb68&hm=a5ed379eac3c72927a2dd1152741ab8eb865cf2476b36d7ffb4ed9845a8742ef&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413212901874864158/20250711213013_1.jpg?ex=68bb1c94&is=68b9cb14&hm=b4fe15628718596d730b337d5cb9a28d1cda080653b88970f31bedee443a0b15&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413224249203621908/gm_christmas_construct0037.jpg?ex=68bb2725&is=68b9d5a5&hm=8e1b3ad8fa6bcbd99eabf6808b512fc055885a3ba98e4a74741c5300d700f137&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413224106849206383/gm_christmas_construct0033.jpg?ex=68bb2703&is=68b9d583&hm=aeb02d8323c890e1fc656f09bf056f93496884c473755f6dbae291f43e4c1133&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413224694793896046/darkstreets0022.jpg?ex=68bb278f&is=68b9d60f&hm=94feb064bdee96dd942b47ba21c1d2eb69e1734b74cd82da3283445ddfacf865&">
+    <img src="https://cdn.discordapp.com/attachments/1355993506618802276/1413225316586885230/darkstreets0085.jpg?ex=68bb2823&is=68b9d6a3&hm=fc2d0ebd4c7d1e0626d7d8e148e93cc5213b37577f60e915ab29d1f17c15eb97&">
   </div>
 
-  <div id="darken-overlay"></div>
-  
-  <img id="bgimg" src="https://cdn.discordapp.com/attachments/1355993506618802276/1387143387982860308/20241214164101_1.jpg?ex=685c4573&is=685af3f3&hm=505c30c4a72bee0d9488fd92e2575122c60b6d40e1504c9b4d44fcd65f5a35a4&" alt="Background">
-  
-  <div id="imgtext-container">
-    <img id="imgtext" src="https://cdn.discordapp.com/attachments/1355993506618802276/1387151738443665549/traitor_4.png?ex=685c4d3a&is=685afbba&hm=552cff11b89b11b1101538d5962a2395378d7d2176a92875a60d9b9e2ace4921&" alt="Main Content">
+  <div class="center">
+    pokumeka
   </div>
-  
-  <audio id="myaudio" autplay loop>
-    <source src="https://audio.jukehost.co.uk/LQLMzAaxtF0YtRHmincvncc3qzYp25ms" type="audio/mpeg" >
-  </audio>
-  
-  <div class="audio-control" id="audio-control">
-    <span class="audio-icon"></span>
-    <span>включить музыку</span>
+
+  <div class="footer">
+    <p>avaiable at:</p>
+    <a href="https://www.youtube.com/@pokumeka187" target="_blank">YouTube</a>
+    <a href="https://discord.com/" target="_blank">Discord</a>
+    <a href="https://steamcommunity.com/id/bruh_moment1337/" target="_blank">Steam</a>
   </div>
 
   <script>
-    // Wait for the page to load
-    document.addEventListener('DOMContentLoaded', function() {
-      const audio = document.getElementById('myaudio');
-      const audioControl = document.getElementById('audio-control');
-      const loadingScreen = document.getElementById('loading');
-      
-      // Set initial volume
-      audio.volume = 0.2;
-      
-      // Audio control functionality
-      audioControl.addEventListener('click', function() {
-        // Enable audio playback
-        audio.play()
-          .then(() => {
-            audioControl.innerHTML = '<span class="audio-icon"></span> 🎶';
-            setTimeout(() => {
-              audioControl.style.opacity = '0.5';
-            }, 2000);
-          })
-          .catch(e => {
-            audioControl.innerHTML = '<span class="audio-icon">🔇</span> Playback blocked';
-          });
-      });
-      
-      // Hide loading screen when images are loaded
-      Promise.all([
-        new Promise(resolve => {
-          const bgImg = document.getElementById('bgimg');
-          if (bgImg.complete) resolve();
-          else bgImg.onload = resolve;
-        }),
-        new Promise(resolve => {
-          const imgText = document.getElementById('imgtext');
-          if (imgText.complete) resolve();
-          else imgText.onload = resolve;
-        })
-      ]).then(() => {
-        setTimeout(() => {
-          loadingScreen.style.opacity = '0';
-          setTimeout(() => {
-            loadingScreen.style.display = 'none';
-          }, 500);
-        }, 1000);
-      });
-      
-      // Modern browsers require user interaction to play audio
-      // We'll show the audio control to prompt user action
-      setTimeout(() => {
-        audioControl.style.display = 'flex';
-      }, 3000);
-    });
+    const images = document.querySelectorAll('.background img');
+    let current = 0;
+
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 1000); 
   </script>
 </body>
 </html>
